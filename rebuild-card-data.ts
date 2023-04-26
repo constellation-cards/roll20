@@ -9,18 +9,18 @@ const faces = require('./data/faces.json')
 import { append, assoc, isEmpty, isNil, join, map, reduce } from 'ramda'
 
 const STACK_TO_EMOJI: Record<string, string[]> = {
-  'Core Rules': [],
-  'Core Rules (Agenda)': [],
-  'Core Rules (Crisis)': [],
-  'Character (Focus)': [],
-  'Character (Role)': [],
-  'Character (Upbringing)': [],
-  Condition: [],
-  Encounter: [],
-  'Success Oracle': [],
-  'Emotion Oracle': [],
-  'City (Dynamic)': [],
-  'City (Neighborhood)': [],
+  'Core Rules': ['📗'],
+  'Core Rules (Agenda)': ['📘'],
+  'Core Rules (Crisis)': ['📕'],
+  'Character (Focus)': ['🛠️'],
+  'Character (Role)': ['🧭'],
+  'Character (Upbringing)': ['🧑'],
+  Condition: ['💀'],
+  Encounter: ['👹'],
+  'Success Oracle': ['❓'],
+  'Emotion Oracle': ['❤️'],
+  'City (Dynamic)': ['🚌'],
+  'City (Neighborhood)': ['🏙️'],
 }
 
 function convertArrayToMap(records: any[]): Record<string, any> {
@@ -50,6 +50,10 @@ const decksMap = convertArrayToMap(decks)
 const stacksMap = convertArrayToMap(stacks)
 const facesMap = convertArrayToMap(faces)
 
+function toHtmlEntities(s: string): string {
+  return s.replace(/\p{Emoji}/gmu, (s) => '&#' + s.codePointAt(0) + ';')
+}
+
 // Convert a single card record (from cards.json)
 // into something our character sheet can use.
 function convertOneCard(card: any): any {
@@ -66,7 +70,7 @@ function convertOneCard(card: any): any {
     name_back: back.name,
     desc_front: describeCard(front),
     desc_back: describeCard(back),
-    emoji: STACK_TO_EMOJI[stack.name],
+    emoji: join('', map(toHtmlEntities, STACK_TO_EMOJI[stack.name])),
   }
 }
 

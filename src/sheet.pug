@@ -1,43 +1,34 @@
 include features/emoji
-include features/tabs
-
-include containers
 
 .roll20reset
-  #megalos-sheet
-    #noctis
-      .container 
-        +tabs("tabs", [
-          {"name": "Character"},
-          {"name": "Powers"},
-          {"name": "Conditions"},
-          {"name": "&#x1F479;", "textclass": "emoji"},
-          {"name": "&#x2699;",  "textclass": "emoji"}
-        ])
-          .sheet.sheet-tab1
-            include sheet-page1
-          .sheet.sheet-tab2
-            include sheet-page2
-          .sheet.sheet-tab3
-            include sheet-page3
-          .sheet.sheet-tab4
-            include sheet-page4
-          .sheet.sheet-tab5
-            include sheet-page5
+  #constellation-cards-sheet
+    .container 
+      fieldset.repeating_cards
+        //- State of the card in the collection
+        input(type="checkbox" name="attr_readonly" value="1")
+        input(type="checkbox" name="attr_flipped" value="1")
+        //- Card properties that can't be edited
+        input(type="checkbox" name="attr_emoji" value="")
+        .card-front
+          input(type="text" name="attr_name_front" placeholder="Card Name" list="card_names")
+          br
+          textarea(name="attr_desc_front" style="border: thin solid black")
+        .card-back
+          input(type="text" name="attr_name_back" placeholder="Card Name" list="card_names")
+          br
+          textarea(name="attr_desc_back" style="border: thin solid black")
 
 //- Pull in datalists for auto completing text fields
 include datalists
 
 script(type="text/worker")
-  | const variables =
-  include variables.json
-  include:typescript features/tabs.ts
-  include:typescript sheetworkers/rollers.ts
-  include:typescript sheetworkers/calculations.ts
-  include:typescript sheetworkers/jsonimport.ts
+  | const CONSTELLATION_CARDS = 
+  include constellation-cards.json
+  | ;
+  include:typescript sheetworkers/sheetworkers.ts
 
 //- Roll templates
 include rolltemplates
 
 //- Include some CSS classes that will be injected by Roll20, so that PurgeCSS doesn't cleanse them
-.btn.repcontrol_add.repcontrol_edit.repcontrol_move.repcontrol_del.aether-current-charges.pictos
+.btn.repcontrol_add.repcontrol_edit.repcontrol_move.repcontrol_del

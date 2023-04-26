@@ -31,6 +31,8 @@ interface StartRollCallbackValues {
   results: StartRollCallbackValuesResults
 }
 
+declare var CONSTELLATION_CARDS: any[]
+
 declare function on(trigger: string, callback: Roll20EventCallback): void
 
 declare function getAttrs(

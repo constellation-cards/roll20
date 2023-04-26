@@ -1,11 +1,12 @@
 {
-  "name": "megalos",
+  "name": "constellation-cards",
   "author": "Bill Garrett <garrett@astralfrontier.org>",
   "version": "1.2.0",
   "description": "118980",
   "main": "index.ts",
   "scripts": {
     "start": "ts-node index.ts",
+    "rebuild-card-data": "ts-node rebuild-card-data.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,12 +25,14 @@
     "jstransformer-markdown-it": "^3.0.0",
     "jstransformer-typescript": "^2.0.0",
     "pug": "^3.0.2",
+    "ramda": "0.28.0",
     "sass": "^1.62.0",
     "typescript": "^5.0.4"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.1",
     "@types/pug": "^2.0.6",
+    "@types/ramda": "^0.28.0",
     "@types/sass": "^1.45.0",
     "purgecss": "^5.0.0",
     "ts-node": "^10.9.1"

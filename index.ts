@@ -5,6 +5,15 @@ import { PurgeCSS } from 'purgecss'
 import sass from 'sass'
 
 import * as packageJson from './package.json'
+import { uniq, map, prop } from 'ramda'
+
+const CONSTELLATION_CARDS = require('./src/constellation-cards.json')
+const cardNames = uniq([
+  ...map(prop('name_front'), CONSTELLATION_CARDS as any[]),
+  ...map(prop('name_back'), CONSTELLATION_CARDS as any[]),
+]) as string[]
+
+// cardNames.map(name => name.replace(/^The /, ''))
 
 const INPUT_DIR = path.join(__dirname, 'src')
 const OUTPUT_DIR = path.join(__dirname, 'dist')
@@ -24,7 +33,12 @@ const locals: any = fs.readJSONSync(path.join(INPUT_DIR, 'variables.json'))
 
 const html = pug.compileFile(path.join(INPUT_DIR, 'sheet.pug'), {
   basedir: INPUT_DIR,
-})({ ...locals, package: packageJson })
+})({
+  ...locals,
+  package: packageJson,
+  CONSTELLATION_CARDS,
+  CONSTELLATION_CARDS_NAMES: cardNames,
+})
 
 const css = sass.compile(path.join(INPUT_DIR, 'sheet.sass'), {
   style: 'compressed',

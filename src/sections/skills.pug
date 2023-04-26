@@ -1,0 +1,13 @@
+fieldset.repeating_skills
+  .repeating-section.columns
+    .repeating-section.column
+      input(type="text" name="attr_skillname" placeholder="Skill name" list="skillnames")
+    .repeating-section.column.is-narrow
+      input(type="number" name="attr_skillrank" placeholder="Rank" min="1" max="5" value="2")
+      button.noctis-button-green.d20(type="action" name="act_skill")
+.columns.mt-3
+  .column
+    input(type="text" value="All Others" readonly)
+  .column.is-narrow
+    input(type="number" value="1" readonly)
+    button.noctis-button-green.d20(type="action" name="act_skilldefault")

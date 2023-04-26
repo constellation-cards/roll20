@@ -1,0 +1,33 @@
+.columns
+  .column
+    +section("Import")
+      p You can use the MEGALOS character maker: https://megalos.astralfrontier.org/character
+      p On the "Sheet" tab of that tool, click "Export". Copy the JSON into this text field. Click "Import".
+      p WARNING: this will delete ALL existing character data!
+      textarea(name="attr_jsonimport" rows="8" style="white-space: pre-line")
+      button.noctis-button-red(type="action" name="act_jsonimport") Import
+    +section("Introduction")
+      p You can customize your introduction text here!
+      p Use <code>@{attribute_name}</code> to substitute attribute names.
+      p Use **text** to bold, _text_ to italicize, etc.
+      p You can even use images, with <code>[Image alt tag](https://image-url/)</code>, as long as the name ends in <code>.jpg</code> or <code>.png</code>.
+      p Use <code>@AVATAR</code> to add your Roll20 character's own avatar as an image.
+      textarea(name="attr_introduction_text" rows="8" style="white-space: pre-line")
+    //- Configured in variables.json
+    if avatar_reactions_enabled
+      +section("Avatar Reactions")
+        fieldset.repeating_reactions
+          .repeating-section.columns
+            .repeating-section.column.is-narrow
+              input(type="text" name="attr_reaction_emoji" placeholder="Emoji")
+            .repeating-section.column
+              input(type="text" name="attr_reaction_name" placeholder="Reaction Name")
+            .repeating-section.column
+              input(type="text" name="attr_reaction_url" placeholder="Avatar URL")
+            .repeating-section.column.is-narrow
+              button.noctis-button-announce(type="roll" name="announce_reaction" value=`&{template:announce} {{text=[@{reaction_name}](@{reaction_url})}}`)
+                span.emoji(name="attr_reaction_emoji")
+    +section()
+      hr
+      p(style="text-align: center")
+        i= `This is version ${package.version} of the MEGALOS character sheet, created by ${package.author}`

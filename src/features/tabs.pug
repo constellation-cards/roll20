@@ -1,0 +1,16 @@
+//- Tabs
+//- Usage:
+//-   * import features/tabs.sass and features/tabs.ts
+//-   * Use the +tabs mixin at the top level of your sheet
+//-   * Pass in an attribute (minus the attr_) and an array of tab names
+//-   * Tabs must be classed "sheet-tab1", "sheet-tab2", etc. within the mixin
+mixin tabs(attr, tabdata)
+  .tabs-section
+    input.tabs-trigger(type="hidden" name=`attr_${attr}` value="tab1")
+    .tabs-buttons
+      - var tabnumber = 0
+      while tabnumber < tabdata.length
+        button.button.is-large(class=tabdata[tabnumber].textclass type="action" name=`act_changetab` data-tab-attr=attr data-tab=`tab${tabnumber + 1}`)!= tabdata[tabnumber].name
+        - tabnumber++
+    if block
+      block

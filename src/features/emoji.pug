@@ -1,0 +1,8 @@
+//- Emoji
+//- Usage:
+//-   * import features/emoji.sass
+//-   * Write +emoji("codepoint"), e.g. +emoji("1425")
+//-
+//- This is necessary because the Roll20 preprocessor will purge actual Emoji characters
+mixin emoji(codepoint)
+  span.emoji= `&#x${codepoint};`

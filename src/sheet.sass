@@ -1,0 +1,55 @@
+// Must come first, since Noctis declarations depend on it
+@import "./features/emoji"
+// Standard features
+@import "./features/roll20-reset"
+// @import "./features/tooltip"
+// Import our new framework
+@import "./noctis"
+@import "./features/tabs"
+@import "./rolltemplates"
+
+#megalos-sheet
+  @import "../node_modules/bulma/sass/utilities/_all"
+  @import "../node_modules/bulma/sass/base/_all"
+  @import "../node_modules/bulma/sass/elements/_all"
+  // @import "../node_modules/bulma/sass/form/_all"
+  @import "../node_modules/bulma/sass/components/_all"
+  @import "../node_modules/bulma/sass/grid/_all"
+  @import "../node_modules/bulma/sass/helpers/_all"
+  @import "../node_modules/bulma/sass/layout/_all"
+
+#sheet-logo
+  text-align: center
+  font-family: "Shadows Into Light", "Arial"
+  font-size: 64px
+  border-bottom: thick dotted gray
+
+.show-combat-effects-toggle:not([value="on"]) ~ .show-combat-effects-section
+  display: none !important
+
+.unlock_ac5_toggle:not([value="on"]) ~ .ac_die_5
+  display: none !important
+
+.powertype_toggle:not([value="Cantrip"]) ~ .aether-current-charges
+  display: none !important
+
+.defense-warning-trigger[value="0"] ~ .defense-warning-message,
+.defense-warning-trigger[value=""] ~ .defense-warning-message
+  display: none !important
+
+input[name="attr_readonly"]:not([value="on"]) ~ .power-block-readonly
+  display: none
+
+input[name="attr_readonly"][value="on"] ~ .power-block-editable
+  display: none
+
+$power-type-keys: ("Talent": #8E7CC3, "Calling Bonus": #E69C55, "Bonus": #E69C55, "Invocation": #70BC63, "Astral Invocation": #70BC63, "Umbral Invocation": #70BC63, "Arcana": #9C3335, "Charged Strike": #9C3335, "Combo Strike": #70BC63, "Counter": #E69C55, "Finisher": #4B74BA, "Sorcery": #9C3335, "Cantrip": #70BC63, "Artifact": #B17E6E)
+
+@each $name, $color in $power-type-keys
+  .attr_powertype_key[value="#{$name}"] ~ .attr_powertype_container
+    .powertype-display
+      background: linear-gradient(to right, #{$color} 80%, rgba(255,0,0,0))
+      color: white
+
+      span
+        color: white

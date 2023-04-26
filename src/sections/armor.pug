@@ -1,0 +1,34 @@
+.columns.is-vcentered
+  .column.is-narrow Name
+  .column
+    input(type="text" name="attr_armor_name")
+  .column.is-narrow.pt-0
+    button.noctis-button-announce(type="roll" name="announce_armor" value="&{template:announce} {{name=@{armor_name}}} {{text=@{armor_desc}}} {{Dodge=@{armor_dodge}}} {{Ward=@{armor_ward}}}")
+.columns
+  .column
+    textarea(name="attr_armor_desc" rows="3")
+.columns
+  .column
+    +box_value("Dodge", "armor_dodge")
+  .column
+    +box_value("Ward", "armor_ward")
+  .column
+    +box_value("Barrier", "barrier", "Uses")
+  //- .col
+  //-   +box_value("Soak", "armor_soak")
+  //- .col
+  //-   +box_value("AHP", "armor_hp")
+.columns
+  .column
+    -
+      var guards = {
+        "attr_status_save_immobilized": "IMMOBILIZED: Unable to move, -3 to Dodge.",
+        "attr_status_save_sick": "SICK: Disadvantage on saves, -3 to Dodge & Ward",
+        "attr_condition_blink": "BLINK: Teleport 1 at the start or end of your turn as a Free action, +3 to Dodge & Ward.",
+        "attr_condition_cloaked": "CLOAKED: Unhittable by single target attacks, advantage on Sneaks, +3 to Dodge & Ward vs. AOE attacks.",
+        "attr_condition_cover": "COVER: +3 to Dodge & Ward."
+      }
+    each message, attr in guards
+      .guard-block
+        input.defense-warning-trigger(type="hidden" name=attr value="0")
+        p.defense-warning-message= message

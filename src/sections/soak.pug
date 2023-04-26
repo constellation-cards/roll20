@@ -1,0 +1,17 @@
+.columns
+  each val in ["physical", "astral", "umbral", "toxic"]
+    - var label = val.charAt(0).toUpperCase() + val.slice(1)
+    - var attr_name = `soak_${val}`
+    .column
+      +box_value(label, attr_name)
+        button.noctis-button-yellow.d6(type="action" name="act_soak" data-soak-label=label data-soak-attr=attr_name)
+.columns
+  .column
+    -
+      var guards = {
+        "attr_condition_shielded": "SHIELDED: Gain +3 on Soak rolls.",
+      }
+    each message, attr in guards
+      .guard-block
+        input.defense-warning-trigger(type="hidden" name=attr value="0")
+        p.defense-warning-message= message

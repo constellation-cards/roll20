@@ -1,0 +1,28 @@
+.columns
+  .column
+    +box_current_max("HP", "hp")
+    +box_current_max("Recovery", "recovery")
+  .column
+    +box_current_max("Armor HP", "armor_hp")
+    +box_value("Recovery Base (RB)", "rb", "HP/4")
+      button.emoji(type="action" name="act_heal")!= "&#x1F48A;"
+  .column
+    +section("Aether Current")
+      textarea(name="attr_aether_current" placeholder="Aether Current Rules" rows="4")
+      label
+        input(type="checkbox" name="attr_unlock_ac5")
+        | Unlock fifth AC die
+include sections/aethercurrents
+.columns
+  .column
+    +box_value("Auto-Atk", "weapon_auto_attack")
+  .column
+    +box_value("Core Dmg", "weapon_core_damage")
+  .column
+    +box_value("Range", "weapon_range")
+  .column
+    +box_value("Wpn Dice", "weapon_dice")
+      button.noctis-button-red.d20(type="action" name="act_attack")
+//- ⚡
++section("Powers", "&#x26A1;")
+  include sections/powers

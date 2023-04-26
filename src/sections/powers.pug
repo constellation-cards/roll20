@@ -1,0 +1,48 @@
+input.unlock_ac5_toggle(type="hidden" name="attr_unlock_ac5")
+fieldset.repeating_powers
+  input(type="hidden" name="attr_readonly")
+  .power-block-readonly
+    input(type="hidden" name="attr_powertype" class="attr_powertype_key")
+    .attr_powertype_container.block
+      .columns
+        .column.powertype-display
+          strong
+            span(name="attr_powername")
+          |
+          | - 
+          strong
+            span(name="attr_powertype")
+        .column.is-narrow
+          button.noctis-button-unlock(type="action" name="act_togglepower")
+          button.noctis-button-announce(type="roll" name="announce_power" value="&{template:announce} {{name=@{powername}}} {{text=@{powerdesc}}} {{Type=@{powertype}}}")
+      .columns
+        .column
+          span(name="attr_powerdesc" style="white-space: pre-line")
+  .power-block-editable
+    //- Hidden field to allow CSS selectors to work
+    input(type="hidden" name="attr_powertype" class="attr_powertype_key")
+    .attr_powertype_container
+      .repeating-section.columns
+        .repeating-section.column.is-narrow Name
+        .repeating-section.column
+          input(type="text" name="attr_powername" placeholder="Power Name")
+        .repeating-section.column.is-narrow Type
+        .repeating-section.column
+          input(type="text" name="attr_powertype" placeholder="Power Type" size="24" list="powertypes")
+        .repeating-section.column.is-narrow.pt-0
+          button.noctis-button-lock(type="action" name="act_togglepower")
+          button.noctis-button-announce(type="roll" name="announce_power" value="&{template:announce} {{name=@{powername}}} {{text=@{powerdesc}}} {{Type=@{powertype}}}")
+      .repeating-section.columns
+        .repeating-section.column
+          textarea(name="attr_powerdesc" placeholder="Power Description" rows="3")
+  input.powertype_toggle(type="hidden" name="attr_powertype")
+  .repeating-section.columns.aether-current-charges.pt-0
+    each val in [1, 2, 3, 4, 5]
+      if val == 5
+        input.unlock_ac5_toggle(type="hidden" name="attr_unlock_ac5")
+      .repeating-section.column.pt-0(class=`ac_die_${val}`)
+        span.tag.is-primary.is-medium
+          label
+            input(type="checkbox" name=`attr_aether_current_assigned_${val}`)
+            != "&nbsp;"
+            span.has-text-white(name=`attr_aether_current_${val}`)

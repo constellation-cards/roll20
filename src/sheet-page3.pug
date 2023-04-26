@@ -1,0 +1,85 @@
+mixin status_condition_stacks(name)
+  each val in [1, 2, 3, 4]
+    input(type="radio" name=`attr_stacks_${name}` value=val)
+
+mixin status(name, has_stacks)
+  .columns
+    .column
+      strong= name.toUpperCase()
+      if has_stacks
+        +status_condition_stacks(name)
+      block
+    .column.is-narrow
+      input(type="number" name=`attr_status_save_${name}` value="0")
+      button.noctis-button-yellow.d20(type="action" name="act_save" data-status-name=name)
+
+mixin condition(name, has_stacks)
+  .columns
+    .column
+      strong= name.toUpperCase()
+      if has_stacks
+        +status_condition_stacks(name)
+      block
+    .column.is-narrow
+      input(type="number" name=`attr_condition_${name}` value="0")
+      button.noctis-button-yellow(type="action" name="act_addcondition" data-condition-name=name) +
+
+include sections/combat-effects
+.columns
+  .column.is-one-half
+    //- 🔴
+    +section("Statuses", "&#x1F534;")
+      .columns
+        .column Announce Marked
+        .column.is-narrow
+          button.noctis-button-announce(type="roll" name="announce_statuses" value="&{template:announce} {{name=Statuses}}@{status_tracker}")
+      +status("afraid")
+        p Do -3 damage vs. whoever inflicted this on you.
+      +status("agony")
+        p Don't regain HP. Cleansed by the first healing effect you receive.
+      +status("dazed")
+        p Disadvantage on attack rolls &amp; skill tests.
+      +status("exposed")
+        p Take +3 damage (+4 from Strikers) from the next attack to hit you.
+      +status("immobilized")
+        p Unable to move, -3 to Dodge.
+      +status("sick")
+        p Disadvantage on saves, -3 to Dodge &amp; Ward
+      +status("slowed")
+        p No Charged actions, all terrain is difficult, only Slow actions, only receive ◆◆ action budget.
+      +status("stunned")
+        p Lose one ◆ on your turn, automatically cleansed after 1 turn.
+      +status("taunted")
+        p Unable to make attacks that don't include the taunter, do your best to attack/auto-attack them.
+      +status("wounded", true)
+        p Take 3 piercing at the start of your turn, +1 per extra stack of WOUNDED.
+      input(type="hidden" name="attr_status_tracker")
+
+  .column.is-one-half
+    //- 🟢
+    +section("Conditions", "&#x1F7E2;")
+      .columns
+        .column Announce Marked
+        .column.is-narrow
+          button.noctis-button-announce(type="roll" name="announce_conditions" value="&{template:announce} {{name=Conditions}}@{condition_tracker}")
+      +condition("blink")
+        p Teleport 1 at the start or end of your turn as a Free action, +3 to Dodge &amp; Ward.
+      +condition("cloaked")
+        p Unhittable by single target attacks, advantage on Sneaks, +3 to Dodge &amp; Ward vs. AOE attacks.
+      +condition("cover")
+        p +3 to Dodge &amp; Ward.
+      +condition("empowered")
+        p Do +3 damage with single-target attacks, +1 with AOE/multitarget.
+      +condition("focused")
+        p Gain Advantage on attacks.
+      +condition("haste")
+        p Gain +1 ◆ on your turn.
+      +condition("regen", true)
+        p Heal 3 at the start of your turn, +1 per extra stack of REGEN.
+      +condition("shielded")
+        p Gain +3 on Soak rolls.
+      input(type="hidden" name="attr_condition_tracker")
+
+      button.noctis-button-yellow(type="action" name="act_clearconditions") One Round Passes
+    +section("Marks")
+      textarea(name="attr_condition_marks" placeholder="Marks and temporary effects" rows="7")

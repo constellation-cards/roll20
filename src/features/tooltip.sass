@@ -1,0 +1,16 @@
+// Tooltip
+// Usage:
+//  * Import features/tooltip.sass
+//  * Include a "data-tooltip" attribute with the text you wish to show
+//  * Add the .tooltip class
+.tooltip:hover::after
+  content: attr(data-tooltip)
+  position: absolute
+  top: 0.1em
+  left: 4em
+  z-index: 1
+  color: white
+  font-size: 12px
+  background-color: #192733
+  border-radius: 10px
+  padding: 10px 15px 10px 15px

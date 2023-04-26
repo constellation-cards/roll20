@@ -1,0 +1,44 @@
+.columns.is-vcentered
+  .column.is-narrow Name
+  .column
+    input(type="text" name="attr_weapon_name")
+  .column.is-narrow.pt-0
+    button.noctis-button-announce(type="roll" name="announce_weapon" value="&{template:announce} {{name=@{weapon_name}}} {{text=@{weapon_desc}}} {{Auto-Attack=@{weapon_auto_attack}}} {{Core Damage=@{weapon_core_damage}}} {{Range=@{weapon_range}}}")
+.columns
+  .column
+    textarea(name="attr_weapon_desc" rows="3")
+.columns
+  .column
+    +box_value("Auto-Atk", "weapon_auto_attack")
+  .column
+    //- Do this manually because we're including a dynamic element in the "help" section
+    .noctis-box
+      h4.noctis-box-title Core Dmg
+      .columns.is-centered
+        .column
+          .p-3
+            input(type="number" name="attr_weapon_core_damage" value="0")
+            p 
+              | +
+              span(name="attr_throne_damage")
+              |
+              | Throne
+  .column
+    +box_value("Range", "weapon_range")
+  .column
+    +box_value("Wpn Dice", "weapon_dice")
+      button.noctis-button-red.d20(type="action" name="act_attack")
+.columns
+  .column
+    -
+      var guards = {
+        "attr_status_save_afraid": "AFRAID: Do -3 damage vs. whoever inflicted this on you.",
+        "attr_status_save_dazed": "DAZED: Disadvantage on attack rolls & skill tests.",
+        "attr_status_save_taunted": "TAUNTED: Unable to make attacks that don't include the taunter, do your best to attack/auto-attack them.",
+        "attr_condition_empowered": "EMPOWERED: Do +3 damage with single-target attacks, +1 with AOE/multitarget.",
+        "attr_condition_focused": "FOCUSED: Gain Advantage on attacks.",
+      }
+    each message, attr in guards
+      .guard-block
+        input.defense-warning-trigger(type="hidden" name=attr value="0")
+        p.defense-warning-message= message

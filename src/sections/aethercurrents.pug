@@ -1,0 +1,15 @@
+.columns
+  each val in [1, 2, 3, 4, 5]
+    if val == 5
+      input.unlock_ac5_toggle(type="hidden" name="attr_unlock_ac5")
+    .column(class=`ac_die_${val}`)
+      +box_default(`AC ${val}`, "")
+        select(name=`attr_aether_current_${val}`)
+          option Available
+          option Used
+          option Throne Damage
+          option Astral Seal
+          option Umbral Seal
+          option Weak Charge
+          option Surging Charge
+        button.noctis-button-red.d6(type="action" name="act_aethercurrent" data-aethercurrent-number=val)

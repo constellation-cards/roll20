@@ -1,0 +1,39 @@
++section()
+  .columns
+    .column
+      label
+        input(type="checkbox" name="attr_show_combat_effects")
+        span Show Combat Effects
+  input.show-combat-effects-toggle(type="hidden" name="attr_show_combat_effects")
+  .show-combat-effects-section
+    .columns
+      .column.is-2
+        label
+          input(type="checkbox" name="attr_ce_toggle_advantage")
+          span Enabled
+      .column.is-2
+        p Advantage
+      .column.is-1
+        input(type="number" name="attr_ce_advantage" min="0" value="0")
+      .column.is-2
+        p Disadvantage
+      .column.is-1
+        input(type="number" name="attr_ce_disadvantage" min="0" value="0")
+    .columns
+      .column.is-2
+        label
+          input(type="checkbox" name="attr_ce_toggle_soak")
+          span Enabled
+      .column.is-2
+        p Soak bonus
+      .column.is-1
+        input(type="number" name="attr_ce_soak_bonus" min="0" value="0")
+    .columns
+      .column.is-2
+        label
+          input(type="checkbox" name="attr_ce_toggle_ac_bonus")
+          span Enabled
+      .column.is-2
+        p Aether Current rolls
+      .column.is-1
+        input(type="number" name="attr_ce_ac_bonus" min="0" value="0")

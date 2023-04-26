@@ -1,0 +1,19 @@
+.roll20reset
+  select,
+  textarea,
+  input[type="text"],
+  input[type="number"],
+  .uneditable-input,
+  label,
+  button
+    all: initial
+
+  // Restore some basic defaults
+  button, label
+    cursor: pointer
+
+  // Remove spinners from text fields
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button
+    -webkit-appearance: none
+    margin: 0

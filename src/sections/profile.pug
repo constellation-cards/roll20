@@ -1,0 +1,46 @@
+//- Character Profile, including name, pronouns, etc.
+
+//- "character_name" is the canonical attribute for the character object overall, so use it
+-
+  var profile_attributes = [
+    {
+      attr: "attr_character_name",
+      label: "Name"
+    },
+    {
+      attr: "attr_homeland",
+      label: "Homeland"
+    },
+    {
+      attr: "attr_pronouns",
+      label: "Pronouns",
+      announce: true
+    },
+    {
+      attr: "attr_class",
+      label: "Class",
+      list: "classes"
+    },
+    {
+      attr: "attr_calling",
+      label: "Calling",
+      list: "callings"
+    },
+    {
+      attr: "attr_role",
+      label: "Role",
+      list: "roles"
+    }
+  ]
+
+each entry in profile_attributes
+  .columns
+    .column.is-one-fifth= entry.label
+    .column
+      if entry.list
+        input(type="text" name=entry.attr list=entry.list)
+      else
+        input(type="text" name=entry.attr list=entry.list)
+    if entry.announce
+      .column.is-narrow.pt-0
+        button.noctis-button-announce(type="action" name="act_introduction")

@@ -1,0 +1,99 @@
+mixin outcome(label, text)
+  p
+    span.sheet-rolltemplate-outcome-label= label
+    span.sheet-rolltemplate-outcome-text= text
+
+//- If there's a roll named "attr" that's non-zero, include the block
+mixin conditional(attr)
+  != `{{#rollGreater() ${attr} 0}}`
+  block
+  != `{{/rollGreater() ${attr} 0}}`
+
+//- Usage: &{template:aether} {{name=Aether Current (1)}} {{roll=[[1d20]]}}
+
+rolltemplate.sheet-rolltemplate-aether
+  .sheet-rolltemplate-header
+    h3= "{{name}}"
+  .sheet-rolltemplate-outcome
+    +outcome("Roll", "{{roll}}")
+    +outcome("Message", "{{computed::message}}")
+
+//- Usage: &{template:attack} {{name=Sword}} {{diff=[[0]]}} {{roll=[[1d20]]}} {{message=[[0]]}} {{damage=[[0]]}}
+//-        {{afraid=[[@{status_save_afraid}]]}}
+//-        {{dazed=[[@{status_save_dazed}]]}}
+//-        {{taunted=[[@{status_save_taunted}]]}}
+//-        {{empowered=[[@{condition_empowered}]]}}
+//-        {{focused=[[@{condition_focused}]]}}
+
+rolltemplate.sheet-rolltemplate-attack
+  .sheet-rolltemplate-header
+    h3= "{{name}}"
+  .sheet-rolltemplate-outcome
+    +outcome("Defense", "{{computed::diff}}")
+    +outcome("Roll", "{{computed::roll}}")
+    +outcome("Outcome", "{{computed::message}}")
+    +outcome("Damage", "{{damage}}")
+    +conditional("throne")
+      +outcome("Throne Bonus", "{{throne}}")
+    +conditional("afraid")
+      +outcome("AFRAID", "Do -3 damage vs. whoever inflicted this on you.")
+    +conditional("dazed")
+      +outcome("DAZED", "Disadvantage on attack rolls & skill tests.")
+    +conditional("taunted")
+      +outcome("TAUNTED", "Unable to make attacks that don't include the taunter, do your best to attack/auto-attack them.")
+    +conditional("empowered")
+      +outcome("EMPOWERED", "Do +3 damage with single-target attacks, +1 with AOE/multitarget.")
+    +conditional("focused")
+      +outcome("FOCUSED", "Gain Advantage on attacks.")
+
+//- Usage: &{template:check} {{name=Attune}} {{diff=[[0]]}} {{roll=[[1d20]]}} {{message=[[0]]}}
+//-        {{dazed=[[@{status_save_dazed}]]}}
+
+rolltemplate.sheet-rolltemplate-check
+  .sheet-rolltemplate-header
+    h3= "{{name}}"
+  .sheet-rolltemplate-outcome
+    +outcome("Difficulty", "{{computed::diff}}")
+    +outcome("Roll", "{{computed::roll}}")
+    +outcome("Outcome", "{{computed::message}}")
+    +conditional("dazed")
+      +outcome("DAZED", "Disadvantage on attack rolls & skill tests.")
+
+//- Usage: &{template:save} {{name=WOUNDED(10)}} {{roll=[[1d20]]}}
+//-        {{sick=[[@{status_save_sick}]]}}
+
+rolltemplate.sheet-rolltemplate-save
+  .sheet-rolltemplate-header
+    h3= "{{name}}"
+  .sheet-rolltemplate-outcome
+    +outcome("Save", "{{computed::roll}}")
+    +outcome("Outcome", "{{computed::message}}")
+    +conditional("sick")
+      +outcome("SICK", "Disadvantage on saves, -3 to Dodge & Ward.")
+
+//- Usage: &{template:soak} {{name=Physical}} {{roll=[[1d6]]}} {{barrier=[[@{barrier}]]}}
+//-        {{exposed=[[@{status_save_exposed}]]}}
+//-        {{shielded=[[@{condition_shielded}]]}}
+
+rolltemplate.sheet-rolltemplate-soak
+  .sheet-rolltemplate-header
+    h3= "{{name}}"
+  .sheet-rolltemplate-outcome
+    +outcome("Soak", "{{roll}}")
+    +conditional("barrier")
+      +outcome("Barrier", "{{barrier}}")
+    +conditional("exposed")
+      +outcome("EXPOSED", "Take +3 damage (+4 from Strikers) from the next attack to hit you.")
+    +conditional("shielded")
+      +outcome("SHIELDED", "Gain +3 on Soak rolls.")
+
+//- Usage: &{template:announce} {{name=Physical}} {{text=Some Text}}
+
+rolltemplate.sheet-rolltemplate-announce
+  .sheet-rolltemplate-header
+    h3= "{{name}}"
+  .sheet-rolltemplate-outcome
+    != "{{#allprops() name text}}"
+    +outcome('{{key}}', '{{value}}')
+    != "{{/allprops() name text}}"
+    p= "{{text}}"

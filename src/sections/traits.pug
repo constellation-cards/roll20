@@ -1,0 +1,29 @@
+//- Traits
+
+-
+  var trait_attributes = [
+    {
+      attr: "background",
+      label: "Background"
+    },
+    {
+      attr: "physical",
+      label: "Physical"
+    },
+    {
+      attr: "mental",
+      label: "Mental",
+    },
+    {
+      attr: "special",
+      label: "Special"
+    }
+  ]
+
+each entry in trait_attributes
+  .columns
+    .column.is-one-fifth= entry.label
+    .column
+      input(type="text" name=`attr_trait_${entry.attr}` list=entry.list)
+    .column.is-narrow.pt-0
+      button.noctis-button-green.d20(type="action" name="act_trait" data-trait-attr=`trait_${entry.attr}`)

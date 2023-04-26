@@ -1,0 +1,204 @@
+$border-white: #eee
+$border-black: #111
+
+$form-border: thin solid black
+
+$gradient-bottom: rgba(2,0,36,1)
+$gradient-top: rgba(160,212,255,1)
+$gradient-mid: #516A92
+
+$megalos-green: #4ABCAD
+$megalos-yellow: #E69C55
+$megalos-red: #9C3335
+$megalos-blue: #4e8eb2
+
+@mixin input-open
+  border-bottom: $form-border
+
+@mixin input-closed
+  border: $form-border
+
+@mixin white-black-border
+  border-radius: 3px
+  border-top: solid $border-white
+  border-left: solid $border-white
+  border-bottom: solid $border-black
+  border-right: solid $border-black
+
+@mixin black-white-border
+  border-radius: 3px
+  border-top: solid $border-black
+  border-left: solid $border-black
+  border-bottom: solid $border-white
+  border-right: solid $border-white
+
+@mixin blue-gradient
+  background: $gradient-bottom
+  background: linear-gradient(0deg, $gradient-bottom 0%, $gradient-top 100%)
+  color: white
+
+@mixin blue-solid
+  background: $gradient-mid
+  color: white
+
+@mixin outlined-font
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000
+
+@mixin green-background
+  background: $megalos-green
+
+@mixin yellow-background
+  background: $megalos-yellow
+
+@mixin red-background
+  background: $megalos-red
+
+@mixin blue-background
+  background: $megalos-blue
+
+#noctis
+  // General styling
+
+  font-family: "Verdana", "Arial"
+
+  .sheet
+    @include white-black-border
+    @include blue-gradient
+    padding: 1em
+
+  // Form elements
+
+  input,
+  textarea,
+  select,
+  button
+    box-sizing: border-box
+
+  input[type="text"]
+    @include input-open
+    width: 100%
+
+  textarea
+    @include input-closed
+    width: 100%
+    white-space: pre-line
+
+  input[type="checkbox"]
+    @include input-closed
+    width: 1em
+
+  input[type="number"]
+    @include input-closed
+    text-align: center
+    -moz-appearance: textfield
+    width: 2em
+
+  select
+    @include input-closed
+
+  // Repeating sections
+
+  .btn.repcontrol_add, .btn.repcontrol_edit, .btn.repcontrol_move, .btn.repcontrol_del
+    @include white-black-border
+    @include blue-solid
+
+  .btn.repcontrol_del
+    padding: 4px 10px
+
+  button.d6::before
+    font-family: "dicefontd6"
+    content: "f"
+
+  button.d20::before
+    font-family: "dicefontd20"
+    content: "t"
+
+  // Add to columns where action buttons will be present
+
+  .repeating-section *
+    position: inherit !important
+
+  // Boxes and sections
+
+  .noctis-box
+    @include white-black-border
+    color: black
+    background: white
+    text-align: center
+    margin: auto
+
+  .noctis-box-title
+    @include blue-solid
+    padding-left: 2px
+
+    h1, h2, h3, h4, h5, h6
+      color: white
+
+  .noctis-section
+    color: black
+    background: white
+    padding: 0.5rem
+
+  .noctis-section-icon
+    @include emoji
+    position: absolute
+    background: white
+    border: thick solid goldenrod
+    font-size: 24px
+    width: 1.5em
+    text-align: center
+    box-shadow: 2px 2px
+    z-index: 99
+
+  .noctis-section-title
+    @include white-black-border
+    @include blue-solid
+    padding-left: 2px
+    margin-bottom: 0.6em
+
+    h1, h2, h3, h4, h5, h6
+      color: white
+
+  .noctis-section-offset
+    padding-left: 2.5em
+
+  .noctis-button-green
+    @include white-black-border
+    @include green-background
+    color: white
+
+  .noctis-button-yellow
+    @include white-black-border
+    @include yellow-background
+    color: white
+
+  .noctis-button-red
+    @include white-black-border
+    @include red-background
+    color: white
+
+  .noctis-button-announce
+    @include white-black-border
+    @include blue-background
+
+  .noctis-button-announce:before
+    color: white
+    font-family: "Pictos"
+    content: "w "
+
+  .noctis-button-lock, .noctis-button-unlock
+    @include white-black-border
+    @include blue-background
+
+  .noctis-button-unlock:before
+    color: white
+    font-family: "Pictos"
+    content: "( "
+
+  .noctis-button-lock:before
+    color: white
+    font-family: "Pictos"
+    content: ") "
+
+.pictos
+  font-family: "Pictos" !important

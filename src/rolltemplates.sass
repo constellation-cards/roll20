@@ -1,0 +1,25 @@
+$megalos-green: #4ABCAD
+$megalos-yellow: #E69C55
+$megalos-red: #9C3335
+$megalos-blue: #4e8eb2
+
+$rolltemplate-types: ("aether": $megalos-red, "attack": $megalos-red, "check": $megalos-green, "save": $megalos-yellow, "soak": $megalos-yellow, "announce": $megalos-blue)
+
+@each $name, $color in $rolltemplate-types
+  .sheet-rolltemplate-#{$name} .sheet-rolltemplate-header
+    background: linear-gradient(to right, $color, rgba(255,0,0,0))
+
+.sheet-rolltemplate-header
+  padding-left: 0.5em
+  border-left: thick solid black
+
+  h3
+    color: white !important
+
+.sheet-rolltemplate-outcome
+  margin-top: 0.5em
+
+.sheet-rolltemplate-outcome-label
+  display: inline-block
+  width: 7em
+  font-weight: bold

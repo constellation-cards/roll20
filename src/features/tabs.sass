@@ -1,0 +1,23 @@
+// Use some ridiculously high number of pages.
+// Anything that's not actually used will get ignored
+@for $page from 1 through 99
+  // Hide tabs that aren't active
+  .tabs-trigger:not([value="tab#{$page}"]) ~ .sheet-tab#{$page}
+    display: none
+
+  // Uncomment and season to taste if you want to highlight the currently active tab
+  .tabs-trigger[value="tab#{$page}"] ~ .tabs-buttons button[data-tab="tab#{$page}"]
+    color: goldenrod !important
+
+// Styling for the buttons
+#noctis .tabs-buttons
+  display: flex
+  flex-wrap: wrap
+  justify-content: center
+
+  button
+    @include white-black-border
+    @include blue-solid
+    @include outlined-font
+    font-family: "Candal", "Georgia", "Arial"
+    font-size: 24px

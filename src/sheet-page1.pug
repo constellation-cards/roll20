@@ -1,0 +1,55 @@
+//- Top level
+.columns
+  .column
+    +section()
+      .columns
+        .column
+          #sheet-logo MEGALOS
+        .column.is-narrow
+          +box_current_max("HP", "hp")
+        .column.is-narrow
+          +box_current_max("Armor HP", "armor_hp")
+        .column.is-narrow
+          +box_current_max("Recovery", "recovery")
+.columns
+  .column
+    +section()
+      include sections/combat-effects
+.columns
+  .column.is-one-half
+    //- Left column
+    //- 🧑
+    +section("Character Profile", "&#x1F9D1;")
+      include sections/profile
+    //- 👥
+    +section("Bonds", "&#x1F465;")
+      include sections/bonds
+    //- ⚔
+    +section("Weapon", "&#x2694;")
+      include sections/weapon
+    //- 🛡️
+    +section("Armor", "&#x1F6E1;")
+      include sections/armor
+    //- ❤️
+    +section("Soak", "&#x2764;")
+      include sections/soak
+  .column.is-one-half
+    //- Right column
+    +section()
+      .columns
+        .column
+          +box_value("Level", "level")
+        .column
+          +box_value("XP", "xp")
+        .column
+          +box_value("RB", "rb", "HP/4")
+            button.emoji(type="action" name="act_heal")!= "&#x1F48A;"
+    //- 📗
+    +section("Skills", "&#x1F4D7;")
+      include sections/skills
+    //- ♻️
+    +section("Traits", "&#x267B;")
+      include sections/traits
+    //- 💎
+    +section("Inventory", "&#x1F48E;")
+      include sections/inventory

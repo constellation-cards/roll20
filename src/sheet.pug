@@ -1,5 +1,24 @@
 include features/emoji
 
+//- "face" is either "front" or "back"
+mixin constellation_card_face(face)
+  //- Add the HTML class for toggling flipped status
+  div(class=`constellation-card-${face}`)
+    //- For each face, include the readonly/editable boolean
+    input(type="hidden" name="attr_readonly")
+    .constellation-card-readonly
+      strong= face
+      br
+      span(name=`attr_name_${face}`)
+      br
+      span(name=`attr_desc_${face}` style="white-space: pre-line")
+      br
+    .constellation-card-editable
+      strong= face
+      input(type="text" name=`attr_name_${face}` placeholder="Card Name" list="card_names")
+      br
+      textarea(name=`attr_desc_${face}` style="border: thin solid black")
+
 .roll20reset
   #constellation-cards-sheet
     .container 
@@ -15,16 +34,8 @@ include features/emoji
 
         //- Card properties that can't be edited
         input(type="hidden" name="attr_flipped")
-        .constellation-card-front
-          strong Front:
-          input(type="text" name="attr_name_front" placeholder="Card Name" list="card_names")
-          br
-          textarea(name="attr_desc_front" style="border: thin solid black")
-        .constellation-card-back
-          strong Back:
-          input(type="text" name="attr_name_back" placeholder="Card Name" list="card_names")
-          br
-          textarea(name="attr_desc_back" style="border: thin solid black")
+        +constellation_card_face("front")
+        +constellation_card_face("back")
 
 //- Pull in datalists for auto completing text fields
 include datalists

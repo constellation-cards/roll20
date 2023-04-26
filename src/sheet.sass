@@ -21,3 +21,9 @@ input[name="attr_flipped"]:not([value="0"]) ~ .constellation-card-front
 
 input[name="attr_flipped"]:not([value="on"]) ~ .constellation-card-back
   display: none
+
+input[name="attr_readonly"]:not([value="on"]) ~ .constellation-card-readonly
+  display: none
+
+input[name="attr_readonly"]:not([value="0"]) ~ .constellation-card-editable
+  display: none

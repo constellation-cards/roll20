@@ -3,21 +3,32 @@ include features/emoji
 //- "face" is either "front" or "back"
 mixin constellation_card_face(face)
   //- Add the HTML class for toggling flipped status
-  div(class=`constellation-card-${face}`)
+  div.block(class=`constellation-card-${face}`)
     //- For each face, include the readonly/editable boolean
     input(type="hidden" name="attr_readonly")
     .constellation-card-readonly
-      strong= face
-      br
-      span(name=`attr_name_${face}`)
-      br
-      span(name=`attr_desc_${face}` style="white-space: pre-line")
-      br
+      .card
+        .card-header
+          .card-header-title
+            span(name=`attr_name_${face}`)
+          //- TODO: .card-header-icon
+        .card-content
+          span(name=`attr_desc_${face}` style="white-space: pre-line")
     .constellation-card-editable
-      strong= face
-      input(type="text" name=`attr_name_${face}` placeholder="Card Name" list="card_names")
-      br
-      textarea(name=`attr_desc_${face}` style="border: thin solid black")
+      .field
+        .field-label
+          label.label= `Card Name (${face})`
+        .field-body
+          .field
+            .control
+              input.input(type="text" name=`attr_name_${face}` placeholder="Card Name" list="card_names")
+      .field
+        .field-label
+          label.label= `Card Text (${face})`
+        .field-body
+          .field
+            .control
+              textarea.textarea(name=`attr_desc_${face}` rows="10" style="white-space: pre-line")
 
 .roll20reset
   #constellation-cards-sheet
@@ -25,10 +36,10 @@ mixin constellation_card_face(face)
       fieldset.repeating_cards
         //- State of the card in the collection
         label
-          input(type="checkbox" name="attr_readonly")
+          input(type="checkbox" name="attr_readonly" checked=false)
           | Readonly?
         label
-          input(type="checkbox" name="attr_flipped")
+          input(type="checkbox" name="attr_flipped" checked=false)
           | Flipped?
         br
 

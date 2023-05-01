@@ -25,7 +25,7 @@
     "jstransformer-markdown-it": "^3.0.0",
     "jstransformer-typescript": "^2.0.0",
     "pug": "^3.0.2",
-    "ramda": "0.28.0",
+    "ramda": "0.29.0",
     "sass": "^1.62.1",
     "typescript": "^5.0.4"
   },
